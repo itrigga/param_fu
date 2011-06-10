@@ -1,0 +1,1 @@
+require 'trigga/param_fu'
