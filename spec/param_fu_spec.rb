@@ -78,17 +78,31 @@ describe Trigga::ParamFu do
     end
     
     describe "require_param" do
-      context "when key is not present in opts" do
-        it "should raise an ArgumentError" do
-          lambda{ Tester.require_param( {:key1=>'value1'}, :key2 ) }.should raise_error(ArgumentError)
+      context "when given a single key" do
+        
+        context "when key is not present in opts" do
+          it "should raise an ArgumentError" do
+            lambda{ Tester.require_param( {:key1=>'value1'}, :key2 ) }.should raise_error(ArgumentError)
+          end
+        end
+        context "when key is present in opts" do
+          it "should not raise an error" do
+            lambda{ Tester.require_param( {:key1=>'value1'}, :key1 ) }.should_not raise_error(ArgumentError)
+          end
         end
       end
-      context "when key is present in opts" do
-        it "should not raise an error" do
-          lambda{ Tester.require_param( {:key1=>'value1'}, :key1 ) }.should_not raise_error(ArgumentError)
+      context "when given multiple keys" do
+        context "when all keys are present" do
+          it "should not raise an error" do
+            lambda{ Tester.require_param( {:key1=>'value1', :key2=>'value2'}, :key2, :key1 ) }.should_not raise_error(ArgumentError)
+          end
+        end
+        context "when at least one key is not present" do
+          it "should raise an ArgumentError " do
+            lambda{ Tester.require_param( {:key1=>'value1', :key2=>'value2'}, :key2, :key1, :key3 ) }.should raise_error(ArgumentError)
+          end
         end
       end
-      
     end
   
     describe "require_obj_or_id" do
