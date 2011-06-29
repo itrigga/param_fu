@@ -12,7 +12,7 @@ module Trigga
         opts
       end
       
-      def require_param(opts, *key)
+      def require_param(opts, *keys)
         keys.to_a.each do |k|
           raise ArgumentError.new("#{k} is required") unless opts[k]
         end
