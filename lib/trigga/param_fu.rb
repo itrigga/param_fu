@@ -41,6 +41,12 @@ module Trigga
       def obj_or_id(opts, key)
         self.class.obj_or_id(opts, key)
       end
+      def require_param(opts, *keys)
+        self.class.require_param(opts, keys)
+      end
+      def require_one_of( opts, *keys )
+        self.class.require_one_of( opts, keys )
+      end
     end
   end
 end
